@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: iteration_1-create_table-categories
+      author: bsgabriel
+      comment: "Create table categories."
+      changes:
+        - sqlFile:
+            path: sql/001-create_table-categories.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: iteration_1-create_table-transactions
+      author: bsgabriel
+      comment: "Create table transactions."
+      changes:
+        - sqlFile:
+            path: sql/002-create_table-transactions.sql
+            relativeToChangelogFile: true
