@@ -14,3 +14,36 @@ spring:
     user: ${DB_LIQUIBASE_USER:budgeting_liquibase}
     password: ${DB_LIQUIBASE_PASS:budgeting_liquibase}
     default-schema: budgeting
+  ai:
+    model:
+      chat: google-genai
+      audio:
+        speech: elevenlabs
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          options:
+            model: "gemini-3.1-flash-lite"
+            temperature: 0.4
+    openai: # vai ser usado apenas pra transcrição (chat/speech desligados com spring.ai.model.*)
+      api-key: ${GROK_API_KEY}
+      base-url: "https://api.groq.com/openai/v1"
+      audio:
+        transcription:
+          options:
+            model: "whisper-large-v3"
+            language: "pt"
+            temperature: 0.0
+            response-format: text
+            prompt: |
+              Áudio em português brasileiro e contém descrição de gastos financeiros. As frases geralmente contêm
+              - um valor em reais (número + reais)
+              - uma ação (gastei, paguei, comprei)
+              - um local ou estabelecimento (farmácia, shopping, loja, etc)
+    elevenlabs:
+      api-key: ${ELEVENLABS_API_KEY}
+      tts:
+        options:
+          model: "eleven_multilingual_v2"
+          voice: "CwhRBWXzGAHq8TQ4Fs17" # mais vozes em: elevenlabs.io/app/voice-library

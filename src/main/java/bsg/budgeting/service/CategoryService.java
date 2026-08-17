@@ -6,6 +6,8 @@ import bsg.budgeting.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
@@ -25,4 +27,15 @@ public class CategoryService {
                 .description(category.getDescription())
                 .build();
     }
+
+    public List<CategoryDto> findAll() {
+        return categoryRepository.findAll()
+                .stream()
+                .map(category -> CategoryDto.builder()
+                        .categoryId(category.getCategoryId())
+                        .description(category.getDescription())
+                        .build())
+                .toList();
+    }
+
 }

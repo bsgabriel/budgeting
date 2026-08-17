@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.ai.tool.annotation.ToolParam;
 
 import java.math.BigDecimal;
 
@@ -17,12 +18,15 @@ import java.math.BigDecimal;
 public class CreateTransactionRequestDto {
 
     @NotBlank
+    @ToolParam(description = "Descrição da transação")
     private String description;
 
     @NotNull
     @Positive
+    @ToolParam(description = "Valor gasto em reais")
     private BigDecimal amount;
 
     @NotNull
+    @ToolParam(description = "Categoria da transação")
     private String category;
 }
