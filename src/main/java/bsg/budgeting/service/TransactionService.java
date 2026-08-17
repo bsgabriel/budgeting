@@ -28,6 +28,7 @@ public class TransactionService {
                         .description(transaction.getDescription())
                         .amount(transaction.getAmount())
                         .category(transaction.getCategory().getDescription())
+                        .type(transaction.getType().toString())
                         .build())
                 .toList();
     }
@@ -38,6 +39,7 @@ public class TransactionService {
         var saved = transactionRepository.save(Transaction.builder()
                 .description(transactionDto.getDescription())
                 .amount(transactionDto.getAmount())
+                .type(transactionDto.getType())
                 .category(Category.builder()
                         .categoryId(categoryDto.getCategoryId())
                         .build())
@@ -48,6 +50,7 @@ public class TransactionService {
                 .description(saved.getDescription())
                 .amount(saved.getAmount())
                 .category(saved.getCategory().getDescription())
+                .type(saved.getType().toString())
                 .build();
     }
 }

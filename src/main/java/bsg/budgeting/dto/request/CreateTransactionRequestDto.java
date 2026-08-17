@@ -1,5 +1,6 @@
 package bsg.budgeting.dto.request;
 
+import bsg.budgeting.enums.TransactionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -29,4 +30,8 @@ public class CreateTransactionRequestDto {
     @NotNull
     @ToolParam(description = "Categoria da transação")
     private String category;
+
+    @NotNull
+    @ToolParam(description = "Tipo de transação (ganho ou despesa)")
+    private TransactionType type;
 }

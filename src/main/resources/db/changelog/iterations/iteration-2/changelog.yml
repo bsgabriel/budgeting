@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: iteration_2-alter_table-transactions-add_column-transaction_type
+      author: bsgabriel
+      comment: "Add column 'transaction_type' to 'transactions' table."
+      changes:
+        - sqlFile:
+            path: sql/001-alter_table-transactions-add_column-transaction_type.sql
+            relativeToChangelogFile: true

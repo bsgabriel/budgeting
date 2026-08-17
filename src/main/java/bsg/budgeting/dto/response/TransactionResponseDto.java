@@ -19,4 +19,5 @@ public class TransactionResponseDto {
     private String description;
     private BigDecimal amount;
     private String category;
+    private String type;
 }
