@@ -24,7 +24,18 @@ public class TransactionAiService {
         var result = chatClient.prompt().user(userMessage).call().content();
         log.info("Resposta da IA: {}", result);
 
-        return textToSpeechModel.call(result);
+        return textToSpeechModel.call(sanitizeResponse(result));
     }
 
+    private String sanitizeResponse(String text) {
+        return text.replaceAll("\\*\\*(.*?)\\*\\*", "$1")   // **negrito**
+                .replaceAll("__(.*?)__", "$1")              // __negrito__
+                .replaceAll("\\*(.*?)\\*", "$1")            // *itálico*
+                .replaceAll("_(.*?)_", "$1")                // _itálico_
+                .replaceAll("~~(.*?)~~", "$1")              // ~~riscado~~
+                .replaceAll("`([^`]*)`", "$1")              // `código`
+                .replaceAll("(?m)^#{1,6}\\s*", "")          // # títulos
+                .replaceAll("(?m)^[-*+]\\s+", "")           // - itens de lista
+                .trim();
+    }
 }

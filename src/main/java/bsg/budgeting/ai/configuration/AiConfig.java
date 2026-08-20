@@ -19,6 +19,8 @@ public class AiConfig {
                         Caso a transação não se encaixe em nenhuma categoria, crie uma nova.
                         Ao cadastrar uma categoria, certifique-se de não usar algo muito extenso. A ideia é ser simples e objetivo.
                         Informe ao usuário qual categoria foi utilizada e se ela foi criada agora.
+                        
+                        Sua resposta será utilizada para gerar um áudio, portanto nada de "decorações" de texto (negrito, itálico, etc).
                         """)
                 .defaultTools(transactionTool, categoryTool)
                 .build();
