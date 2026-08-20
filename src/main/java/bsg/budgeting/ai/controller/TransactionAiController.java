@@ -1,10 +1,8 @@
 package bsg.budgeting.ai.controller;
 
+import bsg.budgeting.ai.service.TransactionAiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ai.audio.transcription.TranscriptionModel;
-import org.springframework.ai.audio.tts.TextToSpeechModel;
-import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,20 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class TransactionAiController {
 
-    private final TranscriptionModel transcriptionModel;
-    private final ChatClient chatClient;
-    private final TextToSpeechModel textToSpeechModel;
+    private final TransactionAiService transactionAiService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = "audio/mp3")
     public ResponseEntity<ByteArrayResource> transcribe(@RequestBody MultipartFile file) {
         try {
-            var userMessage = transcriptionModel.transcribe(file.getResource());
-            log.info("Mensagem do usuário: {}", userMessage);
-
-            var result = chatClient.prompt().user(userMessage).call().content();
-            log.info("Resposta da IA: {}", result);
-
-            var audio = new ByteArrayResource(textToSpeechModel.call(result));
+            var audio = new ByteArrayResource(transactionAiService.createTransaction(file));
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, ContentDisposition.attachment()
